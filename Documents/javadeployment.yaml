@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: javawebappdeployment
+spec:
+ replica: 1
+ stategy:
+  type:Recreate
+ selector:
+   matchLabels:
+   app: javawwebapp
+   template:
+    metadata:
+    name: javawebapppd
+    labels:
+     app: javawebapp
+   spec:
+     conatiner:
+      -name: javawebappconatiner
+       image: ashokit/javawebapp
+       ports:
+        -conatinerPort: 8080
+
+apiVesrion: v1
+Kind: Service
+metadata:
+ name: javawebappsvc.
+spec:
+ type: LoadBalancer 
+  selector:
+  app: javawebapp
+ ports:
+  -port: 80
+  targetport: 8080
